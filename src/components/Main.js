@@ -12,18 +12,22 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
 
-  api.getUserData()
-    .then((res) => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
-    })
-    .catch((err) => console.log(err))
+  React.useEffect(() => {
+    api.getUserData()
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+      .catch((err) => console.log(err))
 
-  api.getInitialCards()
-    .then ((res) => {
-      
-      const cardInfo = res.map((cardData) =>{
+  }, []); 
+
+  
+  React.useEffect(() => {
+    api.getInitialCards()
+      .then ((res) => {
+        const cardInfo = res.map((cardData) =>{
         return {
           name: cardData.name,
           link: cardData.link,
@@ -31,10 +35,12 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
           id: cardData._id
         }
       })
-      
+    
       setCards(cardInfo);
-    })
-    .catch((err) => console.log(err))
+      })
+      .catch((err) => console.log(err))
+  }, []); 
+
 
   return (
     <main className="content">

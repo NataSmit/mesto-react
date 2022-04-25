@@ -57,10 +57,10 @@ function App() {
     <PopupWithForm isOpen={isEditProfilePopupOpen} name={'profile'} title={'Редактировать профиль'} 
       buttonName={'Сохранить'} onClose={closeAllPopups}>
       <input id="profile-name-input" className="popup__form-input popup__form-input_type_name" 
-      type="text"  value="" required minLength="2" maxLength="40" placeholder="Имя" name="name" />
+      type="text" required minLength="2" maxLength="40" placeholder="Имя" name="name" />
       <span className="profile-name-input-error popup__input-error"></span>
       <input id="profile-activity-input" className="popup__form-input popup__form-input_type_activity" 
-      type="text" value="" required minLength="2" maxLength="200" placeholder="Профессиональная деятельность"
+      type="text" required minLength="2" maxLength="200" placeholder="Профессиональная деятельность"
       name="about" />
       <span className="profile-activity-input-error popup__input-error"></span>
 
@@ -69,10 +69,10 @@ function App() {
     <PopupWithForm isOpen={isAddPlacePopupOpen} name={'card'} title={'Новое место'} buttonName={'Создать'}
       onClose={closeAllPopups}>
       <input id="card-name-input" className="popup__form-input popup__form-input_type_card-name" type="text" 
-      placeholder="Название" value="" required minLength="2" maxLength="30" name="name"/>
+      placeholder="Название" required minLength="2" maxLength="30" name="name" />
       <span className="card-name-input-error popup__input-error"></span>
       <input id="card-link-input" className="popup__form-input popup__form-input_type_card-link" type="url" 
-      placeholder="Ссылка на картинку" value="" required name="link"/>
+      placeholder="Ссылка на картинку" required name="link" />
       <span className="card-link-input-error popup__input-error"></span>
 
     </PopupWithForm>   
@@ -82,7 +82,7 @@ function App() {
     <PopupWithForm isOpen={isEditAvatarPopupOpen} name={'update-avatar'} title={'Обновить аватар'} 
       buttonName={'Сохранить'} onClose={closeAllPopups}>
       <input name="avatar" className="popup__form-input popup__form-input_type_update-avatar" type="url" 
-        placeholder="https://somewebsite.com/someimage.jpg" value="" required id="avatar-link-input"/>
+        placeholder="https://somewebsite.com/someimage.jpg"  required id="avatar-link-input" />
       <span className="avatar-link-input-error popup__input-error"></span>
     </PopupWithForm>  
 
