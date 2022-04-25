@@ -3,7 +3,6 @@ import closeIcon from '../images/Close-Icon.svg';
 
 export default function ImagePopup(props) {
 
-  console.log('props Image', props)
   return (
     <div className={`popup popup-view-image ${props.isOpen ? 'popup_opened' : ''}`}>
     <div className="popup-view-image__container">

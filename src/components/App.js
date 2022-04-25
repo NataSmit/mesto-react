@@ -33,7 +33,6 @@ function App() {
   }
 
   function handleCardClick(card) {
-    console.log('clicked');
     setIsImagePopupOpen(true);
     setSelectedCard(card);
   }
@@ -47,7 +46,7 @@ function App() {
 
 
   return (
-  <body className="wrapper">
+  <div className="wrapper">
       <div className="root">
         <Header/>
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} 
@@ -89,7 +88,7 @@ function App() {
 
     <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
       
-</body>
+</div>
   );
 }
 

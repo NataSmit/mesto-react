@@ -18,6 +18,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       setUserDescription(res.about);
       setUserAvatar(res.avatar);
     })
+    .catch((err) => console.log(err))
 
   api.getInitialCards()
     .then ((res) => {
@@ -33,6 +34,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       
       setCards(cardInfo);
     })
+    .catch((err) => console.log(err))
 
   return (
     <main className="content">
@@ -58,7 +60,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       <section className="elements">
         {
           cards.map((card) => (
-            <Card card={card} onCardClick={onCardClick} />))
+            <Card card={card} key={card.id} onCardClick={onCardClick} />))
         }
 
       </section>
