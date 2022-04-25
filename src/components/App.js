@@ -17,6 +17,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -30,9 +32,16 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleCardClick(card) {
+    console.log('clicked');
+    setIsImagePopupOpen(true);
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsImagePopupOpen(false);
     setIsAddPlacePopupOpen(false);
   }
 
@@ -41,7 +50,8 @@ function App() {
   <body className="wrapper">
       <div className="root">
         <Header/>
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} 
+        onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
         <Footer/>
       </div>
 
@@ -77,26 +87,8 @@ function App() {
       <span className="avatar-link-input-error popup__input-error"></span>
     </PopupWithForm>  
 
-    <ImagePopup/>
+    <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
       
-
-  <template className="card-template">
-    <article className="elements__card element">
-      <div className="element__photo">
-        <img className="element__photo-img" src="#" alt="#"/>
-      </div>
-      <div className="element__subtitle">
-        <h2 className="element__name"></h2>
-        <div className="element__likes">
-          <button className="element__icon" type="button" aria-label="Нравится"></button>
-          <span className="element__like-counter"></span>
-        </div>
-      </div>
-      <button className="element__delete-button" type="button" aria-label="Удалить"></button>
-    </article>
-  </template>
-
-
 </body>
   );
 }
