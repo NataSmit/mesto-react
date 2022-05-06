@@ -26,6 +26,7 @@
 @import url(./blocks/element/__subtitle/element__subtitle.css);
 @import url(./blocks/element/__photo-img/element__photo-img.css);
 @import url(./blocks/element/__delete-button/element__delete-button.css);
+@import url(./blocks/element/__delete-button/_hidden/element__delete-button_hidden.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/popup/__container/popup__container.css);
