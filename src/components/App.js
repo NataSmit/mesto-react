@@ -15,8 +15,6 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import {api} from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { CardContext } from '../contexts/CardContext';
-
 
 
 function App() {
@@ -43,8 +41,7 @@ function App() {
       .catch((err) => console.log(err))
   }, []); 
 
-   
-
+  
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -76,26 +73,21 @@ function App() {
   }
 
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
     
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.handleLikeClick(card._id, isLiked)
       .then((newCard) => {
-        console.log('newCard', newCard)
-        
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-        
       });
   } 
   
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then ((res) => {
-        console.log('resDelete', res)
         setCards((state) => state.filter((c) => c._id !== card._id));
-        
       }) 
+      .catch((err) => console.log(err))
   }  
 
   function handleUpdateUser(info) {
@@ -104,14 +96,17 @@ function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
+      .catch((err) => console.log(err))
   }
   
   function handleUpdateAvatar(obj) {
     api.updateAvatar(obj)
       .then((res) => {
+        
         setCurrentUser(res);
         closeAllPopups();
       })
+      .catch((err) => console.log(err))
   }
 
   function handleAddCard(obj) {
@@ -120,36 +115,33 @@ function App() {
         setCards([newCard, ...cards ]);
         closeAllPopups();
       })
+      .catch((err) => console.log(err))
   }
 
   return (
   <div className="wrapper">
     <CurrentUserContext.Provider value={currentUser}>
-      <CardContext.Provider value={cards}>
-        <div className="root">
-          
-              <Header/>
-              <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} 
-              onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}/>
-              <Footer/> 
-            
-        </div>
+      <div className="root">
+        <Header/>
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/> 
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}/>
-    
+        <Main onEditProfile={handleEditProfileClick} 
+        onAddPlace={handleAddPlaceClick} 
+        onEditAvatar={handleEditAvatarClick} 
+        onCardClick={handleCardClick} 
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete} 
+        cards={cards}/>
+
+        <Footer/> 
+      </div>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/> 
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}/>
+      <PopupWithForm name={'delete'} title={'Вы уверены?'} buttonName={'Да'}/>
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
       
-    
-        <PopupWithForm name={'delete'} title={'Вы уверены?'} buttonName={'Да'}/>
-    
-        
-    
-        <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
-      </CardContext.Provider>
     </CurrentUserContext.Provider>    
-</div>
+  </div>
   );
 }
 

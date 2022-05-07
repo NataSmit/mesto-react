@@ -4,17 +4,14 @@ import addIcon from '../images/plus.svg';
 import {api} from '../utils/Api';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { CardContext } from '../contexts/CardContext';
 
 
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete}) {
+
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, cards}) {
 
   const currentUser = React.useContext(CurrentUserContext);
-  const cards = React.useContext(CardContext);
-
   
-
   return (
     <main className="content">
       <section className="profile">
@@ -40,7 +37,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike,
         {
           cards.map((card) => (
             
-            <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} 
+            <Card card={card} key={card._id} 
+            onCardClick={onCardClick} 
+            onCardLike={onCardLike} 
             onCardDelete={onCardDelete}/>))
             
         }
